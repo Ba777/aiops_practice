@@ -1,9 +1,16 @@
 # pylint: disable=wrong-import-position
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+NUM_PARALLEL_EXEC_UNITS = 4
+os.environ['OMP_NUM_THREADS'] = str(NUM_PARALLEL_EXEC_UNITS)
+os.environ["KMP_AFFINITY"] = "granularity=fine,verbose,compact,1,0"
 
 import numpy as np
 import pandas as pd
+pd.set_option('display.max_rows', 30)
+pd.set_option('display.max_columns', 25)
 
 import keras
 from keras.models import Sequential
@@ -12,9 +19,10 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import TimeDistributed
 
-from config import DEFAULTS
+import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.ERROR)
 
-PADDING_SYMBOL_INT = 0
+from config import DEFAULTS
 
 
 class DTA_LSTM():
@@ -102,6 +110,9 @@ class DTA_LSTM():
 
         X = self._pad_traces(X_train)
         y = self._shift_traces_left(X)
+        print('X_train', X_train)
+        print('X', X)
+        print('y', y)
 
         # We can get the parameters only after padding the span lists
         self._get_lstm_parameters(X)
@@ -117,7 +128,7 @@ class DTA_LSTM():
                        validation_split=self.validation_split)
 
     def _pad_traces(self, X):
-        """Pad traces with the special symbol PADDING_SYMBOL_INT up to self.trace_size cells
+        """Pad traces with the special symbol DEFAULTS['padding_symbol'] up to self.trace_size cells
 
         _pad_traces([[1, 2, 3], [3, 4, 5, 6], [7, 8]])
 
@@ -140,7 +151,9 @@ class DTA_LSTM():
         # truncating='pre' remove values at the beginning from sequences larger than maxlen
         # padding='pre' pads each trace at the beginning with a special integer (e.g., 0)
         X = pad_sequences(X, maxlen=self.trace_size, dtype=np.int16,
-                          truncating='pre', padding='pre', value=PADDING_SYMBOL_INT)
+                          truncating='pre', padding='pre', value=DEFAULTS['padding_symbol'])
+
+        print(X)
         # Shape X is (n_traces, self.trace_size)
         # e.g., (25002, 20)
 
@@ -149,7 +162,7 @@ class DTA_LSTM():
     @staticmethod
     def _shift_traces_left(X):
         """
-        Shift traces by one position to the left. Fill new cell with PADDING_SYMBOL_INT
+        Shift traces by one position to the left. Fill new cell with DEFAULTS['padding_symbol']
 
         Parameters
         ----------
@@ -174,10 +187,10 @@ class DTA_LSTM():
         y = np.roll(X, -1, axis=1)
 
         # Pad j array where X array has zeros
-        y[X == 0] = PADDING_SYMBOL_INT
+        y[X == 0] = DEFAULTS['padding_symbol']
 
-        # Write the PADDING_SYMBOL_INT at the last position of the shifted array
-        y[:, -1] = PADDING_SYMBOL_INT
+        # Write the DEFAULTS['padding_symbol'] at the last position of the shifted array
+        y[:, -1] = DEFAULTS['padding_symbol']
 
         return y
 
@@ -262,7 +275,6 @@ class DTA_LSTM():
                 print('X[{}]: {} = {}'.format(i, X[i], rp))
 
         return self.rank_prob
-
 
     def _compare_traces(self, y, yhat):
         """

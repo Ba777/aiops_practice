@@ -8,4 +8,5 @@ DEFAULTS = {
     'explain': True,
     'gpus': 1,
     'span_list_col_name': 'span_list',
+    'padding_symbol': 0
 }

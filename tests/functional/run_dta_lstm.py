@@ -31,7 +31,8 @@ OPENSTACK_SEQUENCE = [
 
 def create_coders():
 
-    encoder = {f: i for i, f in enumerate(sorted(set(function for function, _, _ in OPENSTACK_SEQUENCE)))}
+    encoder = {f: i + DEFAULTS['padding_symbol'] + 1
+               for i, f in enumerate(sorted(set(function for function, _, _ in OPENSTACK_SEQUENCE)))}
     decoder = {i: f for i, f in encoder.items()}
 
     return encoder, decoder
@@ -71,11 +72,11 @@ def main():
 
     # Create an encoder and decoder to transforms function names into integers
     encoder, decoder = create_coders()
-    # pprint.pprint(encoder)
+    pprint.pprint(encoder)
 
     # Generate n=1000 traces to be used for training the model
-    _, encoded_traces = generate_traces(encoder, n=100)
-    # pprint.pprint(raw_traces)
+    raw_traces, encoded_traces = generate_traces(encoder, n=100)
+    pprint.pprint(raw_traces[0])
     # pprint.pprint(encoded_traces)
     df_train_traces = pd.DataFrame(encoded_traces,
                                    columns=['trace_id', DEFAULTS['span_list_col_name']]).set_index('trace_id')
