@@ -104,9 +104,6 @@ if __name__ == "__main__":
         print('trace_id', trace_id, 'indices', list(errors_at))
 
 
-if __name__ == "__main__":
-    main()
-
 #                                                   span_list
 # trace_id
 # 0               [2, 4, 4, 8, 7, 5, 6, 5, 1, 5, 3, 5, 0, 5]
