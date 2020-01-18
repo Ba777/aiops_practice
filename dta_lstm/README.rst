@@ -6,8 +6,7 @@ Run
 ---
 .. code-block:: console
 
-    cd dta_lstm
-    python -m tests.functional.run_dta_lstm
+    python -m dta_lstm.tests.functional.run_dta_lstm
 
 
 Configuration
@@ -15,7 +14,7 @@ Configuration
 
 The file `config.py` is used to configure STrace LSTM
 
-* `$ vi iforesight2/algorithms/strace_lstm/config.py`
+* `$ vi dta_lstm/network/config.py`
 
 .. code-block:: python
 
