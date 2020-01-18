@@ -33,3 +33,27 @@ Run the Example
 .. code-block:: console
 
     $ python enrich_jobs_app.py
+
+    Getting website for moovel Group GmbH (REACH NOW): http://www.moovel.com/de/DE
+    Unable to get site for moovel Group GmbH (REACH NOW)
+    Getting website for Form3: https://form3.tech/
+    Getting website for European Molecular Biology Laboratory (EMBL): http://www.embl.org/jobs
+    Getting website for PollyEx: https://www.pollyex.com/
+    Getting website for Simmons Foods: http://www.workatsimmons.com
+    Input to process:  [('Form3', 'Remote'), ('European Molecular Biology Laboratory (EMBL)', 'Heidelberg, Germany'), ('PollyEx', 'San Francisco, CA'), ('Simmons Foods', 'Siloam Springs')]
+    Getting link: https://en.wikipedia.org/wiki/Remote
+    Getting link: https://en.wikipedia.org/wiki/Remote_control
+    Getting link: https://en.wikipedia.org/wiki/Remote_Desktop_Protocol
+    Getting link: https://en.wikipedia.org/wiki/Remote_sensing
+    Getting link: https://en.wikipedia.org/wiki/Remote_viewing
+    Getting link: https://en.wikipedia.org/wiki/Remotely_operated_underwater_vehicle
+    Getting link: https://en.wikipedia.org/wiki/Remote_Desktop_Services
+    Getting link: https://en.wikipedia.org/wiki/Remote_control_animal
+    Getting link: https://en.wikipedia.org/wiki/Remote_procedure_call
+    Getting link: https://en.wikipedia.org/wiki/Remote_keyless_system
+
+
+The Jaeger UI will show a trace similar to this one:
+
+.. image:: ./jaeger.png
+  :alt: output of traces from code
