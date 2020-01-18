@@ -22,7 +22,7 @@ from keras.layers import TimeDistributed
 import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.ERROR)
 
-from config import DEFAULTS
+from dta_lstm.network.config import DEFAULTS
 
 
 class DTA_LSTM():

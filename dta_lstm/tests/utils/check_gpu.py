@@ -1,9 +1,11 @@
 # pylint: disable=wrong-import-position
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+import sys
 
 from tensorflow.python.client import device_lib  # pylint: disable=no-name-in-module
 import tensorflow as tf
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 
 def get_available_gpus():
@@ -22,12 +24,22 @@ def multiply_matrices():
         return sess.run(c)
 
 
-print()
-print('GPUs available')
-print('--------------')
-print(get_available_gpus())
+def main():
 
-print()
-print('Test matrix multiplication')
-print('--------------------------')
-print(multiply_matrices())
+    gpus = get_available_gpus()
+
+    print()
+    print('GPUs available')
+    print('--------------')
+    print(f'{gpus if gpus else "No GPUs available"}')
+    if not gpus:
+        sys.exit()
+
+    print()
+    print('Test matrix multiplication')
+    print('--------------------------')
+    print(multiply_matrices())
+
+
+if __name__ == "__main__":
+    main()

@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from dta_lstm import DTA_LSTM
-from config import DEFAULTS
+from dta_lstm.network.dta_lstm import DTA_LSTM
+from dta_lstm.network.config import DEFAULTS
 
 
 class Test_DTA_LSTM(unittest.TestCase):
