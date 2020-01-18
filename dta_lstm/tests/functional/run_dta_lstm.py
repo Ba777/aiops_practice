@@ -68,7 +68,7 @@ def run_lstm(train, test):
     return tm.predict(test)
 
 
-def main():
+if __name__ == "__main__":
 
     # Create an encoder and decoder to transforms function names into integers
     encoder, decoder = create_coders()
