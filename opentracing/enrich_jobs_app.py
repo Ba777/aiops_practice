@@ -7,7 +7,6 @@ from transitions import Machine
 logging.getLogger('requests').setLevel(logging.CRITICAL)
 logging.getLogger('urllib3').setLevel(logging.CRITICAL)
 logging.getLogger('transitions').setLevel(logging.CRITICAL)
-logging.getLogger('jaeger_client').setLevel(logging.CRITICAL)
 
 
 class DistributedSystem(object):

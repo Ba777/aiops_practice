@@ -32,4 +32,4 @@ Run the Example
 
 .. code-block:: console
 
-    $ python gen_traces.py
+    $ python enrich_jobs_app.py
