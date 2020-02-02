@@ -51,11 +51,11 @@ def generate_traces(encoder, n=10, base_id=0):
 def mutate_traces(encoded_traces, mode=None, pos=0):
     mode = mode or 'del'
     if mode == 'del':
-        return [[trace_id, [function for i, function in enumerate(functions) if i != pos]]
-                for trace_id, functions in encoded_traces]
+        return [[trace_id, [span for i, span in enumerate(spans) if i != pos]]
+                for trace_id, spans in encoded_traces]
     if mode == 'replace':
-        return [[trace_id, [function if i != pos else 1 for i, function in enumerate(functions)]]
-                for trace_id, functions in encoded_traces]
+        return [[trace_id, [span if i != pos else 1 for i, span in enumerate(spans)]]
+                for trace_id, spans in encoded_traces]
 
     print('Unknown mode')
 
